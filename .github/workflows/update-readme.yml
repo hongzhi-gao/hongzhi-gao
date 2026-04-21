@@ -24,6 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACTIVITY_USERNAME: ${{ github.repository_owner }}
+          IGNORED_REPOS: "hongzhi-gao/hongzhi-gao"
           MAX_ACTIVITY_LINES: "10"
           README_FILE: "README.md"
         run: python3 scripts/update_recent_activity.py

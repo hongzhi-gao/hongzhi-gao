@@ -30,6 +30,20 @@ ACT_START = "<!--RECENT_ACTIVITY:start-->"
 ACT_END = "<!--RECENT_ACTIVITY:end-->"
 
 
+def _ignored_repositories() -> frozenset[str]:
+    """Comma-separated `owner/repo` names to hide from Recent Activity."""
+    raw = os.environ.get("IGNORED_REPOS", "hongzhi-gao/hongzhi-gao").strip()
+    return frozenset(part.strip() for part in raw.split(",") if part.strip())
+
+
+def _event_repo_name(event: Dict[str, Any]) -> Optional[str]:
+    repo = event.get("repo")
+    if not repo or not isinstance(repo, dict):
+        return None
+    name = repo.get("name")
+    return str(name).strip() if name else None
+
+
 def _env_int(name: str, default: int) -> int:
     raw = os.environ.get(name, "").strip()
     if not raw:
@@ -147,20 +161,6 @@ def _branch_from_ref(ref: str) -> str:
     return ref or "unknown"
 
 
-def _should_skip_profile_bot_push(*, repo_full_name: str, subject: str) -> bool:
-    """
-    Avoid flooding the activity list with the README auto-update loop itself.
-    """
-    if repo_full_name != "hongzhi-gao/hongzhi-gao":
-        return False
-    s = subject.casefold()
-    if s.startswith("chore(readme): update recent activity".casefold()):
-        return True
-    if "update readme with the recent activity" in s:
-        return True
-    return False
-
-
 def _render_push_event(event: Dict[str, Any], token: str) -> Optional[str]:
     repo = event.get("repo") or {}
     repo_name = repo.get("name")
@@ -193,9 +193,6 @@ def _render_push_event(event: Dict[str, Any], token: str) -> Optional[str]:
 
     if not subject:
         subject = "(empty commit message)"
-
-    if _should_skip_profile_bot_push(repo_full_name=str(repo_name), subject=subject):
-        return None
 
     commit_url = _commit_page_url(
         str(repo_name), str(head), commit if isinstance(commit, dict) else None
@@ -332,6 +329,10 @@ def _render_issues_event(event: Dict[str, Any]) -> Optional[str]:
 
 
 def _render_event(event: Dict[str, Any], token: str) -> Optional[str]:
+    repo_name = _event_repo_name(event)
+    if repo_name and repo_name in _ignored_repositories():
+        return None
+
     etype = event.get("type")
     if etype == "PushEvent":
         return _render_push_event(event, token)
