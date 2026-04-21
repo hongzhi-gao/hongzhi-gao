@@ -128,6 +128,17 @@ def _repo_url(full_name: str) -> str:
     return f"https://github.com/{full_name}"
 
 
+def _commit_page_url(repo_name: str, sha: str, commit: Optional[Dict[str, Any]] = None) -> str:
+    if commit:
+        url = str(commit.get("html_url") or "").strip()
+        if url:
+            return url
+    sha = str(sha or "").strip()
+    if repo_name and sha:
+        return f"https://github.com/{repo_name}/commit/{sha}"
+    return ""
+
+
 def _branch_from_ref(ref: str) -> str:
     if ref.startswith("refs/heads/"):
         return ref.removeprefix("refs/heads/")
@@ -186,9 +197,18 @@ def _render_push_event(event: Dict[str, Any], token: str) -> Optional[str]:
     if _should_skip_profile_bot_push(repo_full_name=str(repo_name), subject=subject):
         return None
 
+    commit_url = _commit_page_url(
+        str(repo_name), str(head), commit if isinstance(commit, dict) else None
+    )
+    link_text = _safe_md_link_label(subject, max_len=120) or "(commit)"
+    if commit_url:
+        subject_md = f"[{link_text}]({commit_url})"
+    else:
+        subject_md = f"`{link_text}`"
+
     return (
         f"⬆️ Pushed to [{repo_name}]({_repo_url(repo_name)}) on `{branch}`: "
-        f'"{subject}"<br>'
+        f"{subject_md}<br>"
     )
 
 
