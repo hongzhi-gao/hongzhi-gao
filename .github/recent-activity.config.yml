@@ -2,3 +2,8 @@ settings:
   max_lines: 10
   readme_file: "./README.md"
   commit_msg: "chore(readme): update recent activity"
+
+# PushEvent uses `{AMOUNT}` -> `payload.size`, which can be undefined on some events.
+# Avoid referencing commit counts in the template.
+messages:
+  push: "⬆️ Pushed commits to {REPO}"
