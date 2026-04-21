@@ -13,7 +13,7 @@ Tech: C++ / Java / Go / Python · Distributed Systems · Storage Engines
 
 ---
 
-## 最近动态 · Recent Activity
+## Recent Activity
 
 <!--START_SECTION:activity-->
 1. 🎉 Initialized profile README automation.
@@ -21,9 +21,10 @@ Tech: C++ / Java / Go / Python · Distributed Systems · Storage Engines
 
 ---
 
-## 数据概览 · GitHub Stats
+## GitHub Stats
 
-以下为基于 **公开仓库与公开活动** 的统计卡片，不等同于完整技能画像；第三方服务偶发限流时图片可能短暂空白。
+These cards are generated from **public repositories and public activity**.  
+They provide a quick snapshot and may occasionally be unavailable due to third-party rate limits.
 
 <p>
   <a href="https://github.com/hongzhi-gao">
@@ -42,8 +43,11 @@ Tech: C++ / Java / Go / Python · Distributed Systems · Storage Engines
 
 ---
 
-## 技术栈 · Tech Stack
+## Tech Stack
 
-<p>
-  <img src="https://skillicons.dev/icons?i=cpp,java,go,python,kafka,spark,postgres,redis,docker,kubernetes,linux,git" alt="Tech stack icons" />
+- Languages: C++, Java, Go, Python
+- Core Areas: Data Infrastructure, Distributed Systems, Storage Engines
+
+<p align="left">
+  <img src="https://skillicons.dev/icons?i=cpp,java,go,python" alt="Tech stack icons" />
 </p>
