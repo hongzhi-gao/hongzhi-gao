@@ -25,5 +25,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           GH_USERNAME: hongzhi-gao
-          MAX_LINES: 8
+          MAX_LINES: 5
           COMMIT_MSG: "chore(readme): update recent GitHub activity"
