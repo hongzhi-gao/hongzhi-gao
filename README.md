@@ -15,18 +15,20 @@ Tech: C++ / Java / Go / Python · Distributed Systems · Storage Engines
 
 ## Recent Activity
 
-<!--START_SECTION:activity-->
-1. 🎉 Initialized profile README automation.
-<!--END_SECTION:activity-->
+This section is **updated automatically** by GitHub Actions on a schedule.  
+If it does not change, confirm **Actions are enabled** for this repository and **Settings → Actions → General → Workflow permissions** allows **Read and write** for the `GITHUB_TOKEN`.  
+Workflow: [`update-readme.yml`](https://github.com/hongzhi-gao/hongzhi-gao/actions/workflows/update-readme.yml)
+
+<!--RECENT_ACTIVITY:last_update-->
+
+<!--RECENT_ACTIVITY:last_update_end-->
+
+<!--RECENT_ACTIVITY:start-->
+<!--RECENT_ACTIVITY:end-->
 
 ---
 
 ## GitHub Stats
-
-These cards are generated from **public repositories and public activity**.  
-They provide a quick snapshot and may occasionally be unavailable due to third-party rate limits.
-
-The default **Top Languages** card from `github-readme-stats` only aggregates **non-fork** repositories. This profile’s only non-fork public repo is this README (mostly Markdown), so that card renders empty. Below is a **per-repository** view (GitHub linguist) for public repos under this account, including forks (fork totals reflect upstream code, not a personal skill assessment).
 
 <p>
   <a href="https://github.com/hongzhi-gao">
@@ -39,10 +41,6 @@ The default **Top Languages** card from `github-readme-stats` only aggregates **
 
 <p>
   <a href="https://github.com/hongzhi-gao/hongzhi-gao"><img src="https://img.shields.io/github/languages/top/hongzhi-gao/hongzhi-gao?label=hongzhi-gao&logo=github" alt="Primary language for hongzhi-gao/hongzhi-gao" /></a>
-  <a href="https://github.com/hongzhi-gao/iotdb"><img src="https://img.shields.io/github/languages/top/hongzhi-gao/iotdb?label=iotdb&logo=github" alt="Primary language for hongzhi-gao/iotdb" /></a>
-  <a href="https://github.com/hongzhi-gao/tsfile"><img src="https://img.shields.io/github/languages/top/hongzhi-gao/tsfile?label=tsfile&logo=github" alt="Primary language for hongzhi-gao/tsfile" /></a>
-  <a href="https://github.com/hongzhi-gao/vllm"><img src="https://img.shields.io/github/languages/top/hongzhi-gao/vllm?label=vllm&logo=github" alt="Primary language for hongzhi-gao/vllm" /></a>
-  <a href="https://github.com/hongzhi-gao/vllm-omni"><img src="https://img.shields.io/github/languages/top/hongzhi-gao/vllm-omni?label=vllm-omni&logo=github" alt="Primary language for hongzhi-gao/vllm-omni" /></a>
 </p>
 
 <p>
