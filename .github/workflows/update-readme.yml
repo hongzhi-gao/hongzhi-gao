@@ -23,6 +23,7 @@ jobs:
       - name: Render Recent Activity into README
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIVITY_USERNAME: ${{ github.repository_owner }}
           MAX_ACTIVITY_LINES: "10"
           README_FILE: "README.md"
         run: python3 scripts/update_recent_activity.py

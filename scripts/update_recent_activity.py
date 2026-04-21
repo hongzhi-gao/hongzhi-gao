@@ -40,13 +40,14 @@ def _env_int(name: str, default: int) -> int:
 
 
 def _http_json(url: str, token: str) -> Any:
+    # Do not send `X-GitHub-Api-Version` here: pinning an old calendar version has
+    # caused `422 Unprocessable Entity` on some endpoints when GitHub deprecates it.
     req = urllib.request.Request(
         url,
         headers={
             "Authorization": f"Bearer {token}",
             "Accept": "application/vnd.github+json",
             "User-Agent": "hongzhi-gao-profile-recent-activity",
-            "X-GitHub-Api-Version": "2022-11-28",
         },
         method="GET",
     )
@@ -62,10 +63,20 @@ def _http_json(url: str, token: str) -> Any:
                 return json.loads(body)
         except urllib.error.HTTPError as e:
             last_err = e
+            detail = ""
+            try:
+                detail = e.read().decode("utf-8", errors="replace")
+            except Exception:
+                detail = ""
+
             if e.code in (403, 429) or 500 <= e.code <= 599:
                 time.sleep(2 + attempt * 2)
                 continue
-            raise
+
+            # Attach response body for easier debugging in Actions logs.
+            raise RuntimeError(
+                f"GitHub API HTTP {e.code} for {url}: {detail[:800]}"
+            ) from e
         except urllib.error.URLError as e:
             last_err = e
             time.sleep(1 + attempt)
@@ -263,7 +274,7 @@ def _fetch_events(username: str, token: str, pages: int = 5) -> List[Dict[str, A
     for page in range(1, pages + 1):
         url = (
             "https://api.github.com/users/"
-            f"{urllib.parse.quote(username)}/events/public?per_page=100&page={page}"
+            f"{urllib.parse.quote(username)}/events/public?per_page=30&page={page}"
         )
         batch = _http_json(url, token)
         if not isinstance(batch, list) or not batch:
