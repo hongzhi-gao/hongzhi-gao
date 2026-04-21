@@ -100,6 +100,30 @@ def _sanitize_plain(text: str, max_len: int = 120) -> str:
     return text
 
 
+def _safe_md_link_label(text: str, max_len: int = 100) -> str:
+    """Keep Markdown [label](url) from breaking when titles contain brackets."""
+    text = _sanitize_plain(text, max_len=max_len)
+    text = re.sub(r"[\[\]]+", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _pull_request_web_url(pr: Dict[str, Any], repo_name: str, num: int) -> str:
+    """
+    Events payloads sometimes omit `pull_request.html_url`; fall back to a
+    canonical GitHub PR URL from base repo + number.
+    """
+    url = str(pr.get("html_url") or "").strip()
+    if url:
+        return url
+
+    base_full = ((pr.get("base") or {}).get("repo") or {}).get("full_name")
+    if isinstance(base_full, str) and base_full and num:
+        return f"https://github.com/{base_full}/pull/{num}"
+    if repo_name and num:
+        return f"https://github.com/{repo_name}/pull/{num}"
+    return ""
+
+
 def _repo_url(full_name: str) -> str:
     return f"https://github.com/{full_name}"
 
@@ -179,14 +203,35 @@ def _render_issue_comment_event(event: Dict[str, Any]) -> Optional[str]:
     comment = payload.get("comment") or {}
 
     num = issue.get("number")
-    title = _sanitize_plain(str(issue.get("title") or ""), max_len=100)
-    url = str(comment.get("html_url") or issue.get("html_url") or "")
-    if not num or not url:
+    if not num:
         return None
 
-    title_part = f"{title}" if title else "(no title)"
+    num_int = int(num)
+    title = _safe_md_link_label(str(issue.get("title") or ""), max_len=100)
+    comment_url = str(comment.get("html_url") or "").strip()
+    issue_url = str(issue.get("html_url") or "").strip()
+
+    pr_stub = issue.get("pull_request") or {}
+    pr_html = str(pr_stub.get("html_url") or "").strip()
+    if pr_stub and pr_html:
+        # PR thread: link "PR #n" to the pull request; optional link to this comment.
+        title_part = f": {title}" if title else ""
+        if comment_url and comment_url != pr_html:
+            tail = f" ([comment]({comment_url}))"
+        else:
+            tail = ""
+        return (
+            f"💬 Commented on [PR #{num_int}{title_part}]({pr_html}){tail} in "
+            f"[{repo_name}]({_repo_url(repo_name)})<br>"
+        )
+
+    url = comment_url or issue_url
+    if not url:
+        return None
+
+    title_part = title if title else "(no title)"
     return (
-        f"💬 Commented on [#{num} {title_part}]({url}) in "
+        f"💬 Commented on [#{num_int} {title_part}]({url}) in "
         f"[{repo_name}]({_repo_url(repo_name)})<br>"
     )
 
@@ -202,27 +247,35 @@ def _render_pull_request_event(event: Dict[str, Any]) -> Optional[str]:
     pr = payload.get("pull_request") or {}
 
     num = pr.get("number")
-    title = _sanitize_plain(str(pr.get("title") or ""), max_len=100)
-    url = str(pr.get("html_url") or "")
-    if not num or not url:
+    if not num:
+        return None
+
+    num_int = int(num)
+    title = _safe_md_link_label(str(pr.get("title") or ""), max_len=100)
+    url = _pull_request_web_url(pr, str(repo_name), num_int)
+    if not url:
         return None
 
     merged = bool(pr.get("merged"))
     if action == "opened":
-        verb = "Opened PR"
+        verb = "Opened"
         icon = "💪"
     elif action == "closed" and merged:
-        verb = "Merged PR"
+        verb = "Merged"
         icon = "🎉"
     elif action == "closed":
-        verb = "Closed PR"
+        verb = "Closed"
         icon = "❌"
     else:
-        verb = f"PR {action}"
+        verb = action or "updated"
         icon = "🔁"
 
-    title_part = title if title else "(no title)"
-    return f"{icon} {verb} [#{num} {title_part}]({url}) in [{repo_name}]({_repo_url(repo_name)})<br>"
+    title_part = f": {title}" if title else ""
+    link_label = f"PR #{num_int}{title_part}"
+    return (
+        f"{icon} {verb} [{link_label}]({url}) in "
+        f"[{repo_name}]({_repo_url(repo_name)})<br>"
+    )
 
 
 def _render_issues_event(event: Dict[str, Any]) -> Optional[str]:
@@ -238,11 +291,12 @@ def _render_issues_event(event: Dict[str, Any]) -> Optional[str]:
 
     issue = payload.get("issue") or {}
     num = issue.get("number")
-    title = _sanitize_plain(str(issue.get("title") or ""), max_len=100)
+    title = _safe_md_link_label(str(issue.get("title") or ""), max_len=100)
     url = str(issue.get("html_url") or "")
     if not num or not url:
         return None
 
+    num_int = int(num)
     title_part = title if title else "(no title)"
     if action == "closed":
         icon = "✔️"
@@ -254,7 +308,7 @@ def _render_issues_event(event: Dict[str, Any]) -> Optional[str]:
         icon = "❗️"
         verb = "Opened issue"
 
-    return f"{icon} {verb} [#{num} {title_part}]({url}) in [{repo_name}]({_repo_url(repo_name)})<br>"
+    return f"{icon} {verb} [#{num_int} {title_part}]({url}) in [{repo_name}]({_repo_url(repo_name)})<br>"
 
 
 def _render_event(event: Dict[str, Any], token: str) -> Optional[str]:
