@@ -17,20 +17,20 @@ Tech: C++ / Java / Go / Python · Distributed Systems · Storage Engines
 
 
 <!--RECENT_ACTIVITY:last_update-->
-Tuesday, April 21, 2026, 22:22:19 Beijing (UTC+8)
+Tuesday, April 21, 2026, 22:57:19 Beijing (UTC+8)
 <!--RECENT_ACTIVITY:last_update_end-->
 
 <!--RECENT_ACTIVITY:start-->
-1. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [fix(activity): link push subjects to GitHub commit pages](https://github.com/hongzhi-gao/hongzhi-gao/commit/d4a4fc9506c5a15acdf54059b03f84c213a8e58c)<br>
-2. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [fix(activity): make PR lines reliable Markdown links](https://github.com/hongzhi-gao/hongzhi-gao/commit/3f5d167d1fe73201b5082a979d3158a0010a44c5)<br>
-3. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [fix(activity): show Last Updated in Beijing time (UTC+8)](https://github.com/hongzhi-gao/hongzhi-gao/commit/bf6e714083f133c86b9dfb95efe4a9a92f844619)<br>
-4. ⬆️ Pushed to [apache/tsfile](https://github.com/apache/tsfile) on `develop`: [finish (#791)](https://github.com/apache/tsfile/commit/56adf773d4d1fbe09b5c58e12b3af1f789828ba7)<br>
-5. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [fix(activity): avoid GitHub API 422 from pinned Api-Version header](https://github.com/hongzhi-gao/hongzhi-gao/commit/4e7d64700b3a2599a558268e35ab7d485fcc5d43)<br>
-6. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [feat(activity): show push subjects by fetching commit metadata](https://github.com/hongzhi-gao/hongzhi-gao/commit/fb4d2a63b22b6c8205b2edfeadb814f29c1a8b72)<br>
-7. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [fix(activity): avoid undefined commit count in push messages](https://github.com/hongzhi-gao/hongzhi-gao/commit/4f69599af8c4571a4a2b589d5ed0ffe95e66a644)<br>
-8. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [ci(workflows): run update-readme on a 30-minute schedule](https://github.com/hongzhi-gao/hongzhi-gao/commit/f63ac7e456140b7af61c0c1c416802ae3998fe2a)<br>
-9. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [docs(readme): drop stats and tech stack sections](https://github.com/hongzhi-gao/hongzhi-gao/commit/080a0a1f398698835c46e3efc6473cd74207c593)<br>
-10. ⬆️ Pushed to [hongzhi-gao/hongzhi-gao](https://github.com/hongzhi-gao/hongzhi-gao) on `main`: [chore(readme): simplify activity header; show more activity lines](https://github.com/hongzhi-gao/hongzhi-gao/commit/5cc39ad1093abd8602c6929a0bb85c57e957f25b)<br>
+1. ⬆️ Pushed to [apache/tsfile](https://github.com/apache/tsfile) on `develop`: [finish (#791)](https://github.com/apache/tsfile/commit/56adf773d4d1fbe09b5c58e12b3af1f789828ba7)<br>
+2. 💬 Commented on [PR #791: Support more numpy versions for release](https://github.com/apache/tsfile/pull/791) ([comment](https://github.com/apache/tsfile/pull/791#issuecomment-4288201273)) in [apache/tsfile](https://github.com/apache/tsfile)<br>
+3. ⬆️ Pushed to [hongzhi-gao/iotdb](https://github.com/hongzhi-gao/iotdb) on `feature/cpp-spotless`: [fix ci](https://github.com/hongzhi-gao/iotdb/commit/77a37a565cec6246f4c9c7d7125b058001f9b210)<br>
+4. 🔁 merged [PR #790](https://github.com/apache/tsfile/pull/790) in [apache/tsfile](https://github.com/apache/tsfile)<br>
+5. 💪 Opened [PR #17535](https://github.com/apache/iotdb/pull/17535) in [apache/iotdb](https://github.com/apache/iotdb)<br>
+6. 💬 Commented on [PR #790: CI Expand Python unit-test matrix to 3.9/3.11/3.14](https://github.com/apache/tsfile/pull/790) ([comment](https://github.com/apache/tsfile/pull/790#issuecomment-4287899216)) in [apache/tsfile](https://github.com/apache/tsfile)<br>
+7. ⬆️ Pushed to [hongzhi-gao/tsfile](https://github.com/hongzhi-gao/tsfile) on `feature/ci-multi-py-version-ut`: [fix ci](https://github.com/hongzhi-gao/tsfile/commit/d77bccecb5c7cdf50da034ed534edaf17ba85ffb)<br>
+8. 💪 Opened [PR #790](https://github.com/apache/tsfile/pull/790) in [apache/tsfile](https://github.com/apache/tsfile)<br>
+9. ⬆️ Pushed to [hongzhi-gao/tsfile](https://github.com/hongzhi-gao/tsfile) on `feature/ci-multi-py-version-ut`: [ci python ut multi version](https://github.com/hongzhi-gao/tsfile/commit/9529e64edc960cdc698c3bc32d08744529e00842)<br>
+10. 🔁 merged [PR #789](https://github.com/apache/tsfile/pull/789) in [apache/tsfile](https://github.com/apache/tsfile)<br>
 <!--RECENT_ACTIVITY:end-->
 
 ---
