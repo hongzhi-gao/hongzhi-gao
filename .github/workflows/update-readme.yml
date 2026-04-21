@@ -20,7 +20,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update Recent Activity section
-        uses: Readme-Workflows/recent-activity@v2.4.1
+      - name: Render Recent Activity into README
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAX_ACTIVITY_LINES: "10"
+          README_FILE: "README.md"
+        run: python3 scripts/update_recent_activity.py
+
+      - name: Commit README if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No README changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(readme): update recent activity"
+          git push
