@@ -19,8 +19,9 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Any, Dict, List, Optional
+from zoneinfo import ZoneInfo
 
 
 LAST_START = "<!--RECENT_ACTIVITY:last_update-->"
@@ -330,7 +331,11 @@ def main() -> int:
     readme_path = os.environ.get("README_FILE", "README.md").strip() or "README.md"
     readme = open(readme_path, "r", encoding="utf-8").read()
 
-    now = datetime.now(timezone.utc).strftime("%A, %B %d, %Y, %I:%M:%S %p") + " UTC"
+    # Display "Last updated" in Beijing time (China Standard Time, UTC+8, no DST).
+    now = (
+        datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%A, %B %d, %Y, %H:%M:%S")
+        + " Beijing (UTC+8)"
+    )
     last_inner = now
 
     events = _fetch_events(username, token)
