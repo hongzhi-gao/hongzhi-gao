@@ -15,9 +15,6 @@ Tech: C++ / Java / Go / Python · Distributed Systems · Storage Engines
 
 ## Recent Activity
 
-This section is **updated automatically** by GitHub Actions on a schedule.  
-If it does not change, confirm **Actions are enabled** for this repository and **Settings → Actions → General → Workflow permissions** allows **Read and write** for the `GITHUB_TOKEN`.  
-Workflow: [`update-readme.yml`](https://github.com/hongzhi-gao/hongzhi-gao/actions/workflows/update-readme.yml)
 
 <!--RECENT_ACTIVITY:last_update-->
 Last Updated: Tuesday, April 21st, 2026, 1:14:05 PM
