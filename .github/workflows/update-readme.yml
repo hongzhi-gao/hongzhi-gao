@@ -1,13 +1,17 @@
+# Scheduled runs use UTC. :00 and :30 each hour UTC ≈ every 30 minutes.
+# If schedules never run: repo Settings → Actions → General → enable Actions;
+# Workflow permissions → Read and write. Forks: enable Actions + allow schedules.
 name: Update README
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 * * * *"
+    - cron: "30 * * * *"
   workflow_dispatch:
 
 concurrency:
   group: profile-readme-activity
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write

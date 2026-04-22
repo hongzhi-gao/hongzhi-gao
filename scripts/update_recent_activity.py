@@ -368,26 +368,6 @@ def _replace_block(text: str, start: str, end: str, inner: str) -> str:
     return text[:si_end] + "\n" + inner + "\n" + text[ei:]
 
 
-def _extract_between(text: str, start: str, end: str) -> str:
-    si = text.find(start)
-    ei = text.find(end)
-    if si == -1 or ei == -1 or ei < si:
-        return ""
-    si_end = si + len(start)
-    return text[si_end:ei].strip("\n")
-
-
-def _normalize_activity_inner(inner: str) -> str:
-    lines: List[str] = []
-    for raw in inner.splitlines():
-        line = raw.strip()
-        if not line:
-            continue
-        line = re.sub(r"^\d+\.\s*", "", line)
-        lines.append(line)
-    return "\n".join(lines)
-
-
 def main() -> int:
     token = os.environ.get("GITHUB_TOKEN", "").strip()
     if not token:
@@ -428,14 +408,16 @@ def main() -> int:
     numbered = [f"{i + 1}. {line}" for i, line in enumerate(lines)]
     act_inner = "\n".join(numbered)
 
-    old_act_inner = _extract_between(readme, ACT_START, ACT_END)
-    if _normalize_activity_inner(old_act_inner) == _normalize_activity_inner(act_inner):
-        print("No activity changes detected; leaving README unchanged.")
-        return 0
-
+    # Always refresh Last Updated + activity on each workflow run so scheduled
+    # runs visibly update the profile (previously we skipped the whole README
+    # when only the activity text matched, which made schedules look "stuck").
     updated = readme
     updated = _replace_block(updated, LAST_START, LAST_END, last_inner)
     updated = _replace_block(updated, ACT_START, ACT_END, act_inner)
+
+    if updated == readme:
+        print("No README changes (unexpected).")
+        return 0
 
     open(readme_path, "w", encoding="utf-8").write(updated)
     print(f"Updated {readme_path} ({len(lines)} lines).")
