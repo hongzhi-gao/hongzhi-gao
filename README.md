@@ -7,10 +7,6 @@ Tech: C++ / Java / Go / Python · Distributed Systems · Storage Engines
 
 📫 hongzhigao@apache.org
 
-<p>
-  <a href="https://github.com/hongzhi-gao"><img src="https://img.shields.io/badge/GitHub-hongzhi--gao-181717?logo=github" alt="GitHub profile" /></a>
-</p>
-
 ---
 
 ## Recent Activity
